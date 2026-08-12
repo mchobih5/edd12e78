@@ -466,22 +466,25 @@ function getBrowser() {
 }
 
 function playRoute() {
-	var count = 0;
-	for (i=0; i<track.length; i++) {
-		count += track[i].length;
-	}
+    var count = 0;
+    for (i=0; i<track.length; i++) {
+        count += track[i].length;
+    }
 
-	if (count > 1 && !playing) {
-		centerPointer.addTo(map);
+    if (count > 1 && !playing) {
+        centerPointer.addTo(map);
 
-		if (showMeterPanel) {
-			infoPanel = new InfoPanel();
-			map.addControl(infoPanel);
-		}
+        if (showMeterPanel) {
+            // 情報パネルがまだ作られていない場合だけ作る
+            if (!infoPanel) {
+                infoPanel = new InfoPanel();
+                map.addControl(infoPanel);
+            }
+        }
 
-		playing = true;
-		goForward();
-	}
+        playing = true;
+        goForward();
+    }
 }
 
 function goForward() {
@@ -511,15 +514,16 @@ function goForward() {
 			currPoint = 0;
 		}
 		else {
-			window.clearTimeout(playTimer);
-			playing = false;
-			centerPointer.remove();
+		    window.clearTimeout(playTimer);
+		    playing = false;
+		    centerPointer.remove();
 
-			if (showMeterPanel) {
-				map.removeControl(infoPanel);
-			}
+		    // 情報パネルは残す
+		    // if (showMeterPanel) {
+		    //     map.removeControl(infoPanel);
+		    // }
 
-			return;
+		    return;
 		}
 	}
 	playTimer = window.setTimeout("goForward()", waittime);
@@ -529,11 +533,11 @@ function stopRoute() {
 	if (playing) {
 		window.clearTimeout(playTimer);
 		playing = false;
-		centerPointer.remove();
+		// centerPointer.remove();
 
-		if (showMeterPanel) {
-			map.removeControl(infoPanel);
-		}
+		// if (showMeterPanel) {
+		// 	map.removeControl(infoPanel);
+		// }
 	}
 }
 

@@ -477,15 +477,18 @@ function playRoute() {
 	}
 
 	if (count > 1 && !playing) {
-		centerPointer.addTo(map);
+    	centerPointer.addTo(map);
 
-		if (showMeterPanel) {
-			infoPanel = new InfoPanel();
-			map.addControl(infoPanel);
-		}
+	    if (showMeterPanel) {
+    	    // 情報パネルがまだ作られていない場合だけ作る
+        	if (!infoPanel) {
+            	infoPanel = new InfoPanel();
+            	map.addControl(infoPanel);
+        	}
+    	}
 
-		playing = true;
-		goForward();
+	    playing = true;
+    	goForward();
 	}
 }
 
@@ -520,9 +523,10 @@ function goForward() {
 			playing = false;
 			centerPointer.remove();
 
-			if (showMeterPanel) {
-				map.removeControl(infoPanel);
-			}
+			// 情報パネルは最後まで残す
+			// if (showMeterPanel) {
+			// 	map.removeControl(infoPanel);
+			// }
 
 			return;
 		}
