@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title id="pageTitle">ロード中...</title>
+<link rel="stylesheet" href="leaflet/leaflet.css" />
+<style>
+  body { font-family: sans-serif; margin: 0; padding: 0; }
+  #map { width: 100%; height: 90vh; }
+  #controls {
+    text-align: center;
+    padding: 10px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ccc;
+  }
+  button {
+    font-size: 16px;
+    padding: 8px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #0078ff;
+    color: white;
+  }
+  button:hover { background-color: #005fcc; }
+
+  #speedSlider {
+    width: 200px;
+    vertical-align: middle;
+  }
+  #speedLabel {
+    font-weight: bold;
+    margin-left: 8px;
+  }
+
+  .photo-popup img { width: 200px; }
+</style>
+</head>
+<body>
+
+<h2 id="pageHeader">　ロード中...</h2>
+
+<div id="controls">
+  <button id="playPauseBtn">▶ 再生</button>
+  <label for="speedSlider">速度:</label>
+  <input type="range" id="speedSlider" min="10" max="200" step="10" value="100">
+  <span id="speedLabel">100ms</span>
+</div>
+
+<div id="map"></div>
+
+<script src="leaflet/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+
+<script>
+console.log("=== viewer.html 起動 ===");
+
+// ------------------
+// ① URL から coursePath を取得
+// ------------------
+const params = new URLSearchParams(window.location.search);
+let coursePath = params.get("course") || "";
+
+console.log("[DEBUG] 取得した coursePath =", coursePath);
+
+// coursePath の末尾に / が無ければ追加
+if (!coursePath.endsWith("/")) {
+  coursePath += "/";
+  console.log("[DEBUG] coursePath に / を追加 →", coursePath);
+}
+
+// ------------------
+// ② config.json を読み込む
+// ------------------
+const configFile = coursePath + "config.json";
+console.log("[DEBUG] 読み込む config.json →", configFile);
+
+fetch(configFile)
+  .then(response => {
+    if (!response.ok) throw new Error("config.json 読み込みエラー: " + response.status);
+    return response.json();
+  })
+  .then(config => {
+
+    console.log("[DEBUG] 読み込んだ config =", config);
+
+    // --- タイトル設定 ---
+    document.title = config.title;
+    document.getElementById('pageHeader').textContent = '　' + config.title;
+
+    // --- 地図初期化 ---
+    const map = L.map('map').setView(config.mapCenter, 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // ------------------
+    // ③ 写真マーカー
+    // ------------------
+    console.log("[DEBUG] 写真データ読み込み開始");
+
+    config.photos.forEach(photo => {
+      const imgPath = coursePath + photo.file;
+      console.log("[PHOTO]", imgPath);
+
+      L.marker([photo.lat, photo.lon])
+        .addTo(map)
+        .bindPopup('<div class="photo-popup"><img src="' + imgPath + '" /></div>');
+    });
+
+
+    // ------------------
+    // ④ GPX 読み込み
+    // ------------------
+    const gpxFile = coursePath + config.gpxFile;
+    console.log("[DEBUG] 読み込む GPX =", gpxFile);
+
+    new L.GPX(gpxFile, {
+      async: true,
+      marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null }
+    }).on('loaded', function(e) {
+
+      console.log("[DEBUG] GPX loaded");
+
+      map.fitBounds(e.target.getBounds());
+
+      // 軌跡抽出
+      const gpxLayers = e.target.getLayers();
+      let latlngs = [];
+
+      gpxLayers.forEach(layer => {
+        if (layer instanceof L.Polyline) {
+          latlngs = latlngs.concat(layer.getLatLngs());
+        }
+      });
+
+      console.log("[DEBUG] 軌跡点数 =", latlngs.length);
+
+      // ルート線
+      L.polyline(latlngs, { color: 'red', weight: 5 }).addTo(map);
+
+      // 現在位置マーカー
+      const currentMarker = L.marker(latlngs[0], {
+        icon: L.icon({
+          iconUrl: 'https://cdn-icons-png.flaticon.com/512/64/64113.png',
+          iconSize: [32,32]
+        })
+      }).addTo(map);
+
+
+      // ------------------
+      // ⑤ アニメーション
+      // ------------------
+      let index = 0;
+      let playing = false;
+      let timer = null;
+      let speed = 100;
+
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const speedSlider  = document.getElementById('speedSlider');
+      const speedLabel   = document.getElementById('speedLabel');
+
+      speedSlider.addEventListener('input', () => {
+        speed = parseInt(speedSlider.value);
+        speedLabel.textContent = `${speed}ms`;
+      });
+
+      function animateStep() {
+        if (!playing) return;
+        if (index >= latlngs.length) {
+          playing = false;
+          playPauseBtn.textContent = '▶ 再生';
+          return;
+        }
+
+        currentMarker.setLatLng(latlngs[index]);
+        map.panTo(latlngs[index], { animate: true });
+
+        // 写真ポップアップ
+        config.photos.forEach(photo => {
+          const distance = map.distance(latlngs[index], L.latLng(photo.lat, photo.lon));
+          if (distance < 10 && !photo.shown) {
+            L.popup()
+             .setLatLng([photo.lat, photo.lon])
+             .setContent('<div class="photo-popup"><img src="' + coursePath + photo.file + '" /></div>')
+             .openOn(map);
+            photo.shown = true;
+          }
+        });
+
+        index++;
+        timer = setTimeout(animateStep, speed);
+      }
+
+      playPauseBtn.addEventListener('click', () => {
+        if (!playing) {
+          playing = true;
+          playPauseBtn.textContent = '⏸ 停止';
+          animateStep();
+        } else {
+          playing = false;
+          playPauseBtn.textContent = '▶ 再生';
+          clearTimeout(timer);
+        }
+      });
+
+    });
+
+  })
+  .catch(err => {
+    console.error("設定ファイルの読み込みエラー:", err);
+  });
+
+</script>
+
+</body>
+</html>
