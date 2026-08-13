@@ -68,49 +68,6 @@ function displayMap() {
 	setRoutes();
 	drawWaypoints(true, true, true, true);
 	setTracks();
-
-	// 地図上でクリックした位置にコメント追加
-	//map.on('click', addComment);
-}
-
-function addComment(e) {
-    var comment = prompt("この場所にコメントを入力してください");
-
-    if (comment === null || comment.trim() === "") {
-        return;
-    }
-
-    var markerInfo = new MarkerInfo(
-        e.latlng.lat,        e.latlng.lng,        0,
-        "",        "",        14,        comment,
-        "",        "",        "",        ""
-    );
-
-    // 地図上に一時的に表示
-    createMarker(markerInfo, false, false, false, false);
-
-    // setWaypoints() に追加するコードを作成
-    var code =
-        'waypoints.push(new MarkerInfo(' +
-        e.latlng.lat.toFixed(6) + ', ' +
-        e.latlng.lng.toFixed(6) + ', ' +
-        '0, "", "", 14, ' +
-        JSON.stringify(comment) +
-        ', "", "", "", ""));';
-
-    // クリップボードへコピー
-    navigator.clipboard.writeText(code).then(function() {
-        alert(
-            "コメントを地図に追加しました。\n\n" +
-            "setWaypoints() に追加するコードをクリップボードへコピーしました。"
-        );
-    }).catch(function() {
-        // コピーできなかった場合の予備
-        prompt(
-            "以下のコードを setWaypoints() に追加してください。",
-            code
-        );
-    });
 }
 
 function setWaypoints() {
@@ -126,9 +83,6 @@ function setWaypoints() {
 	waypoints.push(new MarkerInfo(36.847848, 136.752513, 0, "2026/07/27", "14:13:00", 0, "千里浜", "files/IMG_20260727_141233_1.jpg", "", "", ""));
 	waypoints.push(new MarkerInfo(36.886082, 136.768358, 0, "2026/07/27", "14:33:00", 0, "千里浜の砂で作られた像", "files/IMG_20260727_143333.jpg", "", "", ""));
 	waypoints.push(new MarkerInfo(36.886082, 136.768358, 0, "2026/07/27", "14:33:00", 0, "千里浜近くの道の駅", "files/IMG_20260727_144425_1.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(37.368247, 137.243614, 0, "", "", 14, "朝日がめちゃキレイだった", "", "", "", ""));
-	waypoints.push(new MarkerInfo(36.869459, 136.761932, 0, "", "", 14, "思い出の千里浜をドライブ！", "", "", "", ""));
-	waypoints.push(new MarkerInfo(36.578317, 136.643829, 0, "", "", 14, "お土産たくさんいただいて、買って、旅終了", "", "", "", ""));
 }
 
 function setRoutes() {
@@ -356,7 +310,6 @@ function setIcon() {
 	markerIcon[11] = new MyIcon({iconUrl: imgPath + "blue-dot.png"});
 	markerIcon[12] = new MyIcon({iconUrl: imgPath + "pink-dot.png"});
 	markerIcon[13] = new MyIcon({iconUrl: imgPath + "ltblue-dot.png"});
-	markerIcon[14] = new MyIcon({iconUrl: "files/comment.png"});
 }
 
 function MarkerInfo(lat, lon, height, date, time, icon, name, image, url, desc, largeImage) {

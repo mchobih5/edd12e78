@@ -68,6 +68,49 @@ function displayMap() {
 	setRoutes();
 	drawWaypoints(true, true, true, true);
 	setTracks();
+
+	// 地図上でクリックした位置にコメント追加
+	//map.on('click', addComment);
+}
+
+function addComment(e) {
+    var comment = prompt("この場所にコメントを入力してください");
+
+    if (comment === null || comment.trim() === "") {
+        return;
+    }
+
+    var markerInfo = new MarkerInfo(
+        e.latlng.lat,        e.latlng.lng,        0,
+        "",        "",        14,        comment,
+        "",        "",        "",        ""
+    );
+
+    // 地図上に一時的に表示
+    createMarker(markerInfo, false, false, false, false);
+
+    // setWaypoints() に追加するコードを作成
+    var code =
+        'waypoints.push(new MarkerInfo(' +
+        e.latlng.lat.toFixed(6) + ', ' +
+        e.latlng.lng.toFixed(6) + ', ' +
+        '0, "", "", 14, ' +
+        JSON.stringify(comment) +
+        ', "", "", "", ""));';
+
+    // クリップボードへコピー
+    navigator.clipboard.writeText(code).then(function() {
+        alert(
+            "コメントを地図に追加しました。\n\n" +
+            "setWaypoints() に追加するコードをクリップボードへコピーしました。"
+        );
+    }).catch(function() {
+        // コピーできなかった場合の予備
+        prompt(
+            "以下のコードを setWaypoints() に追加してください。",
+            code
+        );
+    });
 }
 
 function setWaypoints() {
@@ -78,6 +121,9 @@ function setWaypoints() {
 	waypoints.push(new MarkerInfo(37.529053, 137.325974, 90, "2026/07/26", "17:12:10", 0, "禄剛崎灯台モニュメント", "files/IMG_20260726_171211.jpg", "", "", ""));
 	waypoints.push(new MarkerInfo(37.528854, 137.325943, 94, "2026/07/26", "17:15:45", 0, "禄剛崎灯台", "files/IMG_20260726_171545.jpg", "", "", ""));
 	waypoints.push(new MarkerInfo(37.367561, 137.244354, 64, "2026/07/26", "19:00:12", 0, "ラブロ恋路の夕食", "files/IMG_20260726_190012.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(37.473223, 137.098389, 0, "", "", 14, "通行止めで引き返す", "", "", "", ""));
+	waypoints.push(new MarkerInfo(37.493247, 137.315540, 0, "", "", 14, "まるで猫バスやトトロが出てきそうな道、、、", "", "", "", ""));
+	waypoints.push(new MarkerInfo(37.497980, 137.346482, 0, "", "", 14, "須須神社にもお参り", "", "", "", ""));
 }
 
 function setRoutes() {
@@ -315,6 +361,7 @@ function setIcon() {
 	markerIcon[11] = new MyIcon({iconUrl: imgPath + "blue-dot.png"});
 	markerIcon[12] = new MyIcon({iconUrl: imgPath + "pink-dot.png"});
 	markerIcon[13] = new MyIcon({iconUrl: imgPath + "ltblue-dot.png"});
+	markerIcon[14] = new MyIcon({iconUrl: "files/comment.png"});
 }
 
 function MarkerInfo(lat, lon, height, date, time, icon, name, image, url, desc, largeImage) {
