@@ -1,0 +1,325 @@
+﻿/* ページ全体 */
+body {
+	margin: 10px 0px 0px 10px;
+	background-color: white;
+	font-family: Arial, Helvetica, "メイリオ", "ヒラギノ角ゴPro W3", Osaka, sans-serif;
+}
+/* リンクのスタイル（通常時） */
+a:link, a:visited {
+	text-decoration: none;
+	color: mediumblue;
+}
+/* リンクのスタイル（ロールオーバー時） */
+a:hover {
+	text-decoration: none;
+	color: orange;
+}
+/* リンクのスタイル(クリック時） */
+a:active {
+	text-decoration: none;
+	color: red;
+}
+/* コンテンツの外枠 */
+#container {
+	margin: 0px;
+}
+/* 地図表示部 */
+#map {
+	margin: 0px;
+	float: left;
+}
+/* マーカーリストの外枠 */
+#markerlistbox {
+	float: left;
+	overflow: auto;
+}
+/* ページの表題 */
+h1 {
+	margin: 0px 0px 10px 0px;
+	padding: 4px 10px;
+	font-size: 24px;
+	font-weight: normal;
+	text-align: center;
+	color: white;
+	background-color: darkgreen;
+}
+/* マーカーリストのヘッダ部 */
+.markerlist_header {
+	margin: 0px 0px 10px 10px;
+	padding: 2px 2px 2px 10px;
+	background-color: lightsteelblue;
+	font-size: 12px;
+	font-weight: bold;
+}
+/* マーカーリスト全体 */
+ul.markerlist {
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+}
+/* マーカーリストの項目 */
+ul.markerlist li {
+	margin: 2px 0px;
+	padding: 0px;
+	font-size: 12px;
+	line-height: 120%;
+	list-style-type: none;
+}
+/* ポップアップウィンドウ全体 */
+.marker {
+	width: 340px;
+	margin: 10px 0px 0px 0px;
+	font-family: Arial, Helvetica, "メイリオ", "ヒラギノ角ゴPro W3", Osaka, sans-serif;
+}
+/* ポップアップウィンドウの表題 */
+.marker .marker_subject {
+	border: solid 1px gray;
+	padding: 4px;
+	font-size: 16px;
+}
+/* ポップアップウィンドウの日付時間 */
+.marker .marker_time {
+	padding: 4px;
+	font-size: 16px;
+}
+/* ポップアップウィンドウの座標・高度 */
+.marker .marker_location {
+	padding: 4px;
+	font-size: 16px;
+}
+/* ポップアップウィンドウの画像ボックス */
+.marker .marker_image {
+	padding: 10px;
+	text-align: center;
+}
+/* ポップアップウィンドウの画像 */
+.marker .marker_image img {
+	border: 0px;
+}
+/* ポップアップウィンドウの参照リンク */
+.marker .marker_url {
+	padding: 4px;
+	font-size: 12px;
+}
+/* ポップアップウィンドウの説明 */
+.marker .marker_desc {
+	padding: 4px;
+	font-size: 14px;
+	line-height: 130%;
+}
+/* トラック再生パネルの枠 */
+.playroute {
+	margin: 10px 0px 0px 0px;
+	padding: 5px 10px;
+	border: solid 1px steelblue;
+	background-color: lightsteelblue;
+}
+/* トラック再生パネルのボタン */
+.playroute .playbuttons {
+	margin: 0px 3px;
+}
+/* GPXファイルリンクの外枠 */
+#gpxlinkbox {
+	margin: 0px;
+	padding: 5px 10px;
+}
+/* トラックデータのヘッダ部 */
+h2 {
+	margin: 20px 0px 10px 0px;
+	padding: 3px 10px;
+	border-width: 1px 1px 1px 20px;
+	border-style: solid;
+	font-size: 16px;
+	font-weight: normal;
+	color: black;
+}
+/* タイムライン選択フォーム */
+.timelineform  {
+	margin: 10px 0px 0px 20px;
+}
+/* ログ解析表示部 */
+.loganalysis {
+	margin: 0px;
+}
+/* ログ解析のヘッダ部 */
+.loganalysis h3 {
+	margin: 20px 0px 10px 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: gray;
+}
+/* ログ解析のテーブル */
+.loganalysis table {
+	font-size: 16px;
+	margin: 0px 0px 0px 20px;
+}
+/* ログ解析の項目名 */
+.loganalysis td.itemname {
+	width: 110px;
+	padding: 3px;
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+/* ログ解析のデータ */
+.loganalysis td.itemvalue {
+	width: 160px;
+	padding: 3px;
+	background-color: gainsboro;
+	color: black;
+	text-align: right;
+}
+/* 区間解析表示部 */
+.sectionanalysis {
+	margin: 0px;
+}
+/* 区間解析のヘッダ部 */
+.sectionanalysis h3 {
+	margin: 20px 0px 10px 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: gray;
+}
+/* 区間解析のテーブル */
+.sectionanalysis table {
+	font-size: 13px;
+	color: black;
+	margin: 0px 0px 0px 20px;
+}
+/* 区間解析のテーブルヘッダ行 */
+.sectionanalysis th {
+	padding: 3px;
+	text-align: center;
+	color: white;
+	background-color: #36608D;
+	font-weight: normal;
+}
+/* 区間解析の地点行 */
+.sectionanalysis tr.point {
+	background-color: #BFD8FF;
+}
+/* 区間解析の中間行 */
+.sectionanalysis tr.interval {
+	background-color: #E1ECFF;
+}
+/* 区間解析の地点名 */
+.sectionanalysis td.place {
+	width: 200px;
+	padding: 3px;
+	text-align: left;
+}
+/* 区間解析の時刻 */
+.sectionanalysis td.time {
+	width: 70px;
+	padding: 3px;
+	text-align: center;
+}
+/* 区間解析の距離 */
+.sectionanalysis td.distance {
+	width: 70px;
+	padding: 3px;
+	text-align: right;
+}
+/* 区間解析の平均速度 */
+.sectionanalysis td.avespeed {
+	width: 70px;
+	padding: 3px;
+	text-align: right;
+}
+/* 区間解析の高度 */
+.sectionanalysis td.height {
+	width: 110px;
+	padding: 3px;
+	text-align: right;
+}
+/* 区間解析の平均勾配 */
+.sectionanalysis td.avegrad {
+	width: 60px;
+	padding: 3px;
+	text-align: right;
+}
+/* プロフィールマップ表示部 */
+.profilemap {
+	margin: 0px;
+}
+/* プロフィールマップのヘッダ部 */
+.profilemap h3 {
+	margin: 20px 0px 10px 20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: gray;
+}
+/* 情報パネルの内部 */
+div#time, div#speed, div#height {
+	margin: 8px 8px;
+	font-size: 12px;
+	font-family: "ＭＳ ゴシック", "Osaka-mono", monospace;
+	line-height: 100%;
+}
+/* コメント表示部 */
+.note {
+	margin: 0px 0px 0px 20px;
+}
+/* コメントのヘッダ部 */
+.note h3 {
+	margin: 20px 0px 10px 0px;
+	font-size: 14px;
+	font-weight: bold;
+	color: gray;
+}
+/* コメントの本文 */
+.note_body {
+	margin: 0px 10px;
+	font-size: 16px;
+	line-height: 130%;
+}
+/* コメント内の区切り線 */
+.note hr {
+	margin: 10px 0px;
+	border: solid 1px lightgrey;
+}
+/* レポート表示部 */
+.report {
+	margin: 0px 0px 0px 20px;
+}
+/* レポートのヘッダ部 */
+.report h3 {
+	margin: 20px 0px 10px 0px;
+	font-size: 14px;
+	font-weight: bold;
+	color: gray;
+}
+/* レポート内の地点名 */
+.report h4 {
+	margin: 8px 0px 24px 0px;
+	font-size: 16px;
+	font-weight: bold;
+	color: darkgreen;
+}
+/* レポート内の本文 */
+.report p {
+	margin: 0px;
+	font-size: 16px;
+	line-height: 120%;
+}
+/* レポート内の画像 */
+.report img {
+	margin-right: 16px;
+	float: left;
+	vertical-align: top;
+	border: 0px;
+}
+/* レポート内の区切り線 */
+.report hr {
+	margin: 10px 0px;
+	border: solid 1px lightgrey;
+}
+/* 著作権表示 */
+.copyright {
+	font-size: 12px;
+	margin: 5px 20px;
+}
+/* 著作権表示のリンク */
+.copyright a {
+	color: slategray;
+	text-decoration: none;
+}
