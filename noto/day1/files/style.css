@@ -438,3 +438,18 @@ div#time, div#speed, div#height {
 		display: none;
 	}
 }
+/* スマートフォンでの写真ポップアップ */
+@media (max-width: 600px) {
+	.leaflet-popup {
+		max-width: calc(100vw - 20px);
+	}
+
+	.leaflet-popup-content {
+		max-width: calc(100vw - 60px);
+	}
+
+	.leaflet-popup-content img {
+		max-width: 100%;
+		height: auto;
+	}
+}
