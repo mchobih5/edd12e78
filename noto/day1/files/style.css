@@ -432,6 +432,11 @@ div#time, div#speed, div#height {
 		height: auto;
 	}
 
+	/* 下にコンテンツが続くことを分かりやすくする */
+	.playroute {
+		margin-bottom: 20px;
+		border-bottom: 3px solid lightgray;
+	}
 }
 
 /* ================================
