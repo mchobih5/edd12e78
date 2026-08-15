@@ -83,8 +83,9 @@ ul.markerlist li {
 }
 /* ポップアップウィンドウの座標・高度 */
 .marker .marker_location {
-	padding: 4px;
-	font-size: 16px;
+	/* padding: 4px;
+	font-size: 16px; */
+	display: none;
 }
 /* ポップアップウィンドウの画像ボックス */
 .marker .marker_image {
@@ -432,24 +433,71 @@ div#time, div#speed, div#height {
 	}
 
 }
-/* スマートフォンではマーカーリストを非表示 */
+
+/* ================================
+   スマートフォンでの写真ポップアップ
+   ================================ */
+
 @media screen and (max-width: 600px) {
+
+	/* マーカーリストを非表示 */
 	#markerlistbox {
 		display: none;
 	}
-}
-/* スマートフォンでの写真ポップアップ */
-@media (max-width: 600px) {
+
+	/* Leafletの吹き出し */
 	.leaflet-popup {
-		max-width: calc(100vw - 20px);
+		max-width: 50vw !important;
+	}
+
+	.leaflet-popup-content-wrapper {
+		max-width: 50vw !important;
+		max-height: 50vh !important;
+		overflow: hidden !important;
 	}
 
 	.leaflet-popup-content {
-		max-width: calc(100vw - 60px);
+		width: auto !important;
+		max-width: 45vw !important;
+		max-height: 45vh !important;
+		overflow: hidden !important;
+		margin: 8px !important;
 	}
 
-	.leaflet-popup-content img {
-		max-width: 100%;
-		height: auto;
+	/* Wadachiのポップアップ本体 */
+	.marker {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin: 0 !important;
+	}
+
+	/* 写真部分 */
+	.marker .marker_image {
+		padding: 4px !important;
+		max-width: 100% !important;
+	}
+
+	/* 写真そのもの */
+	.marker .marker_image img {
+		max-width: 100% !important;
+		width: auto !important;
+		height: auto !important;
+	}
+
+	/* タイトル・日時・説明 */
+	.marker .marker_subject,
+	.marker .marker_time,
+	.marker .marker_desc {
+		max-width: 100% !important;
+		box-sizing: border-box;
+	}
+
+	/* 吹き出しの閉じる「×」ボタンを大きくする */
+	.leaflet-popup-close-button {
+		width: 36px !important;
+		height: 36px !important;
+		font-size: 30px !important;
+		line-height: 36px !important;
+		padding: 0 !important;
 	}
 }
