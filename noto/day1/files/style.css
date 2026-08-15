@@ -350,7 +350,7 @@ div#time, div#speed, div#height {
 	/* 地図 */
 	#map {
 		width: 100% !important;
-		height: 60vh !important;
+		height: 55vh !important;
 		float: none;
 	}
 
