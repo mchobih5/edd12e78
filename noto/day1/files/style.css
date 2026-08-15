@@ -323,3 +323,118 @@ div#time, div#speed, div#height {
 	color: slategray;
 	text-decoration: none;
 }
+
+/* ================================
+   スマートフォン対応
+   ================================ */
+
+@media screen and (max-width: 600px) {
+
+	/* ページ全体 */
+	body {
+		margin: 0;
+	}
+
+	/* コンテンツの外枠 */
+	#container {
+		width: 100% !important;
+	}
+
+	/* ページの表題 */
+	h1 {
+		font-size: 20px;
+		padding: 8px 10px;
+	}
+
+	/* 地図 */
+	#map {
+		width: 100% !important;
+		height: 60vh !important;
+		float: none;
+	}
+
+	/* マーカーリスト */
+	#markerlistbox {
+		width: 100% !important;
+		height: auto !important;
+		float: none;
+		overflow: visible;
+	}
+
+	.markerlist_header {
+		margin: 10px 10px 5px 10px;
+		padding: 8px 10px;
+		font-size: 16px;
+	}
+
+	ul.markerlist {
+		margin: 0 10px;
+		padding: 0;
+	}
+
+	ul.markerlist li {
+		margin: 5px 0;
+		font-size: 16px;
+		line-height: 140%;
+	}
+
+	/* トラック再生パネル */
+	.playroute {
+		margin: 10px 0;
+		padding: 8px;
+	}
+
+	.playroute .playbuttons {
+		margin: 4px 2px;
+		padding: 8px 10px;
+		font-size: 14px;
+	}
+
+	/* GPSログ解析 */
+	.loganalysis {
+		overflow-x: auto;
+	}
+
+	.loganalysis table {
+		margin-left: 10px;
+		font-size: 14px;
+	}
+
+	/* レポート */
+	.report {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.report img {
+		max-width: 100%;
+		height: auto;
+		float: none;
+		margin-right: 0;
+	}
+
+	.report h4 {
+		font-size: 18px;
+	}
+
+	.report p {
+		font-size: 16px;
+	}
+
+	/* プロフィールマップ */
+	.profilemap {
+		overflow-x: auto;
+	}
+
+	.profilemap img {
+		max-width: 100%;
+		height: auto;
+	}
+
+}
+/* スマートフォンではマーカーリストを非表示 */
+@media screen and (max-width: 600px) {
+	#markerlistbox {
+		display: none;
+	}
+}
