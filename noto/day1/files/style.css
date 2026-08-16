@@ -326,7 +326,121 @@ div#time, div#speed, div#height {
 }
 
 /* ================================
-   スマートフォン対応・追加設定
+   スマートフォン対応
+   ================================ */
+
+@media screen and (max-width: 600px) {
+
+	/* ページ全体 */
+	body {
+		margin: 0;
+	}
+
+	/* コンテンツの外枠 */
+	#container {
+		width: 100% !important;
+	}
+
+	/* ページの表題 */
+	h1 {
+		font-size: 20px;
+		padding: 8px 10px;
+	}
+
+	/* 地図 */
+	#map {
+		width: 100% !important;
+		height: 55vh !important;
+		float: none;
+	}
+
+	/* マーカーリスト */
+	#markerlistbox {
+		width: 100% !important;
+		height: auto !important;
+		float: none;
+		overflow: visible;
+	}
+
+	.markerlist_header {
+		margin: 10px 10px 5px 10px;
+		padding: 8px 10px;
+		font-size: 16px;
+	}
+
+	ul.markerlist {
+		margin: 0 10px;
+		padding: 0;
+	}
+
+	ul.markerlist li {
+		margin: 5px 0;
+		font-size: 16px;
+		line-height: 140%;
+	}
+
+	/* トラック再生パネル */
+	.playroute {
+		margin: 10px 0;
+		padding: 8px;
+	}
+
+	.playroute .playbuttons {
+		margin: 4px 2px;
+		padding: 8px 10px;
+		font-size: 14px;
+	}
+
+	/* GPSログ解析 */
+	.loganalysis {
+		overflow-x: auto;
+	}
+
+	.loganalysis table {
+		margin-left: 10px;
+		font-size: 14px;
+	}
+
+	/* レポート */
+	.report {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.report img {
+		max-width: 100%;
+		height: auto;
+		float: none;
+		margin-right: 0;
+	}
+
+	.report h4 {
+		font-size: 18px;
+	}
+
+	.report p {
+		font-size: 16px;
+	}
+
+	/* プロフィールマップ */
+	.profilemap {
+		overflow-x: auto;
+	}
+
+	.profilemap img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	/* 下にコンテンツが続くことを分かりやすくする */
+	.playroute {
+		margin-bottom: 20px;
+		border-bottom: 3px solid lightgray;
+	}
+}
+
+/* ================================
+   スマートフォンでの写真ポップアップ
    ================================ */
 
 @media screen and (max-width: 600px) {
@@ -336,72 +450,59 @@ div#time, div#speed, div#height {
 		display: none;
 	}
 
-	/* --------------------------------
-	   写真ポップアップ
-	   -------------------------------- */
-
-	/* 写真ポップアップ全体 */
-	.leaflet-popup:has(.marker_image) {
+	/* Leafletの吹き出し */
+	.leaflet-popup {
 		max-width: 50vw !important;
 	}
 
-	/* 写真ポップアップの中身 */
-	.leaflet-popup:has(.marker_image) .leaflet-popup-content-wrapper {
+	.leaflet-popup-content-wrapper {
 		max-width: 50vw !important;
 		max-height: 50vh !important;
-		overflow: hidden;
+		overflow: hidden !important;
 	}
 
-	.leaflet-popup:has(.marker_image) .leaflet-popup-content {
+	.leaflet-popup-content {
 		width: auto !important;
 		max-width: 45vw !important;
 		max-height: 45vh !important;
-		overflow: hidden;
-		margin: 10px;
+		overflow: hidden !important;
+		margin: 8px !important;
 	}
 
-	/* 写真 */
-	.leaflet-popup:has(.marker_image) .leaflet-popup-content img {
+	/* Wadachiのポップアップ本体 */
+	.marker {
+		width: 100% !important;
 		max-width: 100% !important;
+		margin: 0 !important;
+	}
+
+	/* 写真部分 */
+	.marker .marker_image {
+		padding: 4px !important;
+		max-width: 100% !important;
+	}
+
+	/* 写真そのもの */
+	.marker .marker_image img {
+		max-width: 100% !important;
+		width: auto !important;
 		height: auto !important;
 	}
 
-	/* --------------------------------
-	   コメントポップアップ
-	   -------------------------------- */
-
-	/* コメント吹き出しは写真より横幅を広くする */
-	.leaflet-popup:not(:has(.marker_image)) {
-		max-width: 80vw !important;
+	/* タイトル・日時・説明 */
+	.marker .marker_subject,
+	.marker .marker_time,
+	.marker .marker_desc {
+		max-width: 100% !important;
+		box-sizing: border-box;
 	}
 
-	.leaflet-popup:not(:has(.marker_image)) .leaflet-popup-content-wrapper {
-		max-width: 80vw !important;
-		max-height: 50vh !important;
-		overflow: hidden;
-	}
-
-	.leaflet-popup:not(:has(.marker_image)) .leaflet-popup-content {
-		width: auto !important;
-		max-width: 75vw !important;
-		max-height: 45vh !important;
-		overflow: hidden;
-		margin: 10px;
-	}
-	
-	/* コメント本文 */
-	.leaflet-popup:not(:has(.marker_image)) .marker_desc {
-		width: auto;
-		max-width: 100%;
-		word-break: normal;
-		overflow-wrap: break-word;
-	}
-	
-	/* ×ボタン */
+	/* 吹き出しの閉じる「×」ボタンを大きくする */
 	.leaflet-popup-close-button {
-		width: 30px !important;
-		height: 30px !important;
-		font-size: 24px !important;
-		line-height: 30px !important;
+		width: 36px !important;
+		height: 36px !important;
+		font-size: 30px !important;
+		line-height: 36px !important;
+		padding: 0 !important;
 	}
 }
