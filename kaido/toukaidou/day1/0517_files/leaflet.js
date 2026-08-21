@@ -1133,75 +1133,84 @@ function getBrowser() {
 }
 
 function playRoute() {
-	var count = 0;
-	for (i=0; i<track.length; i++) {
-		count += track[i].length;
-	}
+    var count = 0;
 
-	if (count > 1 && !playing) {
-		centerPointer.addTo(map);
+    for (i = 0; i < track.length; i++) {
+        count += track[i].length;
+    }
 
-		if (showMeterPanel) {
-			infoPanel = new InfoPanel();
-			map.addControl(infoPanel);
-		}
+    if (count > 1 && !playing) {
+        centerPointer.addTo(map);
 
-		playing = true;
-		goForward();
-	}
+        // 情報パネルは、まだ作られていない場合だけ作成
+        if (showMeterPanel) {
+            if (!infoPanel) {
+                infoPanel = new InfoPanel();
+                map.addControl(infoPanel);
+            }
+        }
+
+        playing = true;
+        goForward();
+    }
 }
+
 
 function goForward() {
-	var waittime;
-	var pos = track[currTrack][currPoint].latlng;
-	map.panTo(pos);
-	centerPointer.setLatLng(pos);
+    var waittime;
+    var pos = track[currTrack][currPoint].latlng;
+    map.panTo(pos);
+    centerPointer.setLatLng(pos);
 
-	if (showMeterPanel) {
-		displayInfoPanel(currTrack, currPoint);
-	}
+    if (showMeterPanel) {
+        displayInfoPanel(currTrack, currPoint);
+    }
 
-	if (currPoint < track[currTrack].length - 1) {
-		if (realTimePlay) {
-			waittime = track[currTrack][currPoint+1].time.getTime() - track[currTrack][currPoint].time.getTime();
-			waittime /= parseFloat(document.getElementById("playSpeed").value);
-		}
-		else {
-			waittime = 1000 / parseFloat(document.getElementById("playSpeed").value);
-		}
-		currPoint++;
-	}
-	else {
-		if (currTrack < track.length - 1) {
-			waittime = 1000;
-			currTrack++;
-			currPoint = 0;
-		}
-		else {
-			window.clearTimeout(playTimer);
-			playing = false;
-			centerPointer.remove();
+    if (currPoint < track[currTrack].length - 1) {
+        if (realTimePlay) {
+            waittime =
+                track[currTrack][currPoint + 1].time.getTime() -
+                track[currTrack][currPoint].time.getTime();
 
-			if (showMeterPanel) {
-				map.removeControl(infoPanel);
-			}
+            waittime /=
+                parseFloat(document.getElementById("playSpeed").value);
+        }
+        else {
+            waittime =
+                1000 /
+                parseFloat(document.getElementById("playSpeed").value);
+        }
 
-			return;
-		}
-	}
-	playTimer = window.setTimeout("goForward()", waittime);
+        currPoint++;
+    }
+    else {
+        if (currTrack < track.length - 1) {
+            waittime = 1000;
+            currTrack++;
+            currPoint = 0;
+        }
+        else {
+            window.clearTimeout(playTimer);
+            playing = false;
+
+            centerPointer.remove();
+
+            // 情報パネルは終了後も残す
+            return;
+        }
+    }
+
+    playTimer = window.setTimeout("goForward()", waittime);
 }
 
-function stopRoute() {
-	if (playing) {
-		window.clearTimeout(playTimer);
-		playing = false;
-		centerPointer.remove();
 
-		if (showMeterPanel) {
-			map.removeControl(infoPanel);
-		}
-	}
+function stopRoute() {
+    if (playing) {
+        window.clearTimeout(playTimer);
+        playing = false;
+
+        // 情報パネルは停止後も残す
+    }
 }
 
 function rewindRoute() {
