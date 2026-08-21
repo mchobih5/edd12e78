@@ -323,3 +323,91 @@ div#time, div#speed, div#height {
 	color: slategray;
 	text-decoration: none;
 }
+
+/* ================================
+   スマートフォン対応
+   ================================ */
+
+@media screen and (max-width: 600px) {
+
+	/* ページ全体 */
+	body {
+		margin: 0;
+	}
+
+	/* コンテンツの外枠 */
+	#container {
+		width: 100% !important;
+	}
+
+	/* ページの表題 */
+	h1 {
+		font-size: 20px;
+		padding: 8px 10px;
+	}
+
+	/* 地図 */
+	#map {
+		width: 100% !important;
+		height: 55vh !important;
+		float: none;
+	}
+
+	/* マーカーリストを非表示 */
+	#markerlistbox {
+		display: none;
+	}
+
+	/* トラック再生パネル */
+	.playroute {
+		margin: 10px 0;
+		padding: 8px;
+	}
+
+	/* GPSログ解析 */
+	.loganalysis {
+		overflow-x: auto;
+	}
+
+	.loganalysis table {
+		margin-left: 10px;
+		font-size: 14px;
+	}
+
+	/* レポート */
+	.report {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.report img {
+		max-width: 100%;
+		height: auto;
+		float: none;
+		margin-right: 0;
+	}
+
+	.report h4 {
+		font-size: 18px;
+	}
+
+	.report p {
+		font-size: 16px;
+	}
+
+	/* プロフィールマップ */
+	.profilemap {
+		overflow-x: auto;
+	}
+
+	.profilemap img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	/* 下にコンテンツが続くことを分かりやすくする */
+	.playroute {
+		margin-bottom: 20px;
+		border-bottom: 3px solid lightgray;
+	}
+}

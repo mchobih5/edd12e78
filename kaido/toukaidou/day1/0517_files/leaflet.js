@@ -56,7 +56,7 @@ function displayMap() {
 	/*<SetView>*/
 
 	var pointerIcon = L.icon({
-		iconUrl: "20260517_files/center_pointer.png",
+		iconUrl: "0517_files/center_pointer.png",
 		iconSize: [32, 32],
 		iconAnchor: [15, 15]
 	});
@@ -71,13 +71,13 @@ function displayMap() {
 }
 
 function setWaypoints() {
-	waypoints.push(new MarkerInfo(35.684410, 139.774414, 40, "2026/05/17", "07:25:56", 0, "五街道の起点「日本国道路元標」", "20260517_files/IMG_20260517_072556.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.679012, 139.771439, 130, "2026/05/17", "07:39:32", 0, "銀座の不思議なオブジェ", "20260517_files/IMG_20260517_073932_1.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.623932, 139.739120, 45, "2026/05/17", "08:51:47", 0, "品川宿", "20260517_files/IMG_20260517_085147.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.535953, 139.708420, 38, "2026/05/17", "10:49:42", 0, "武州六郷船渡図", "20260517_files/IMG_20260517_104942_1.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.535923, 139.708450, 37, "2026/05/17", "10:49:49", 0, "六郷の渡し跡", "20260517_files/IMG_20260517_104949_1.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.535683, 139.707748, 44, "2026/05/17", "10:52:24", 0, "六郷の渡しと旅籠街の案内", "20260517_files/IMG_20260517_105224_1.jpg", "", "", ""));
-	waypoints.push(new MarkerInfo(35.528194, 139.700287, 68, "2026/05/17", "11:12:17", 0, "川崎宿", "20260517_files/IMG_20260517_111217_1.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.684410, 139.774414, 40, "2026/05/17", "07:25:56", 0, "五街道の起点「日本国道路元標」", "0517_files/IMG_20260517_072556.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.679012, 139.771439, 130, "2026/05/17", "07:39:32", 0, "銀座の不思議なオブジェ", "0517_files/IMG_20260517_073932_1.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.623932, 139.739120, 45, "2026/05/17", "08:51:47", 0, "品川宿", "0517_files/IMG_20260517_085147.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.535953, 139.708420, 38, "2026/05/17", "10:49:42", 0, "武州六郷船渡図", "0517_files/IMG_20260517_104942_1.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.535923, 139.708450, 37, "2026/05/17", "10:49:49", 0, "六郷の渡し跡", "0517_files/IMG_20260517_104949_1.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.535683, 139.707748, 44, "2026/05/17", "10:52:24", 0, "六郷の渡しと旅籠街の案内", "0517_files/IMG_20260517_105224_1.jpg", "", "", ""));
+	waypoints.push(new MarkerInfo(35.528194, 139.700287, 68, "2026/05/17", "11:12:17", 0, "川崎宿", "0517_files/IMG_20260517_111217_1.jpg", "", "", ""));
 }
 
 function setRoutes() {
